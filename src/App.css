@@ -1,0 +1,120 @@
+/* General body and html styles to ensure full height */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+}
+
+body {
+  background-image: radial-gradient(rgb(127, 255, 229), rgb(23, 148, 170));
+  background-repeat: no-repeat;
+}
+
+/* Container for the entire app */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Common flex styles for centering content */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* Header container styles */
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.8);
+  height: 100vh;
+}
+
+#inputLocationBox {
+  width: 33.33%;
+  padding: 15px;
+  border: 2px solid black;
+}
+
+#searchButton {
+  width: 100px;
+  margin-left: 10px;
+  padding: 2em;
+  border-radius: 50%;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.todays-weather-container, .forecast-header-container, .three-day-weather-info, .hottest-day-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  height: 100vh;
+}
+
+.todays-weather {
+  border: 2px solid black;
+  padding: 2em;
+  text-align: center;
+}
+
+.location-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.location-wrapper p {
+  margin: 2px;
+}
+
+.current-temp {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.temp-type-container {
+  border: 2px solid black;
+  text-align: center;
+  padding: 2em;
+}
+
+.forecast-header-container {
+  margin: 3em 0;
+}
+
+.three-day-weather-info {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.forecast-box {
+  border: 2px solid black;
+  padding: 2em;
+  text-align: center;
+  margin: 10px;
+}
+
+.hottest-day-container {
+  justify-content: center;
+}
+
+#hottest-day-info {
+  border: 2px solid black;
+  font-size: 30px;
+  text-align: center;
+  padding: 1em;
+  width: 80%;
+}
