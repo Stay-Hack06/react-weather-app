@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
+import landingImage from './assets/weather-app-landing.jpeg';
+import mainImage from './assets/weather-app-main.jpeg';
 
 function App() {
   const [userLocation, setUserLocation] = useState('');
   const [weatherData, setWeatherData] = useState(null);
   const [showWeather, setShowWeather] = useState(false);
+  const [backgroundImage, setBackgroundImage] = useState(landingImage);
 
   const fetchWeatherData = async () => {
     try {
@@ -18,6 +21,7 @@ function App() {
 
       setWeatherData(data);
       setShowWeather(true);
+      setBackgroundImage(mainImage);
     } catch (error) {
       console.error("Error fetching weather data:", error);
     }
@@ -29,22 +33,27 @@ function App() {
     return new Intl.DateTimeFormat('en-US', options).format(date);
   };
 
+  useEffect(() => {
+    document.body.style.backgroundImage = `url(${backgroundImage})`;
+  }, [backgroundImage]);
+
   return (
     <div className="App">
-      <div className="header-container">
+      <div className="header-container flex-center">
         <h1>Local Weather Report</h1>
         <input
           type="text"
           placeholder="Enter City, State or zip"
           value={userLocation}
           onChange={(e) => setUserLocation(e.target.value)}
+          id="inputLocationBox"
         />
-        <button onClick={fetchWeatherData}>Search</button>
+        <button id="searchButton" onClick={fetchWeatherData}>Search</button>
       </div>
 
       {showWeather && weatherData && (
         <>
-          <div className="todays-weather-container">
+          <div className="todays-weather-container flex-center">
             <div className="todays-weather">
               <h2>Today&apos;s Weather</h2>
               <div className="location-wrapper">
@@ -64,23 +73,23 @@ function App() {
             </div>
           </div>
 
-          <div className="forecast-header-container">
+          <div className="forecast-header-container flex-center">
             <h2>Three Day Forecast</h2>
-          </div>
-          <div className="three-day-weather-info">
-            {weatherData.forecast.forecastday.slice(1, 4).map((forecast, index) => (
-              <div key={index} className="forecast-box">
-                <h3>{getDayOfWeek(forecast.date)}</h3>
-                <h1>{Math.round(forecast.day.avgtemp_f)}°F</h1>
-                <p>High Temp: {Math.round(forecast.day.maxtemp_f)}°F</p>
-                <p>Low Temp: {Math.round(forecast.day.mintemp_f)}°F</p>
-                <p>Chance of Rain: {forecast.day.daily_chance_of_rain}%</p>
-              </div>
-            ))}
+            <div className="three-day-weather-info">
+              {weatherData.forecast.forecastday.slice(1, 4).map((forecast, index) => (
+                <div key={index} className="forecast-box">
+                  <h3>{getDayOfWeek(forecast.date)}</h3>
+                  <h1>{Math.round(forecast.day.avgtemp_f)}°F</h1>
+                  <p>High Temp: {Math.round(forecast.day.maxtemp_f)}°F</p>
+                  <p>Low Temp: {Math.round(forecast.day.mintemp_f)}°F</p>
+                  <p>Chance of Rain: {forecast.day.daily_chance_of_rain}%</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="hottest-day-container">
-            <h2>The Hottest day this week is {getDayOfWeek(weatherData.forecast.forecastday.reduce((prev, curr) => (curr.day.maxtemp_f > prev.day.maxtemp_f ? curr : prev)).date)}</h2>
+          <div className="hottest-day-container flex-center">
+            <h2 id="hottest-day-info">The Hottest day this week is {getDayOfWeek(weatherData.forecast.forecastday.reduce((prev, curr) => (curr.day.maxtemp_f > prev.day.maxtemp_f ? curr : prev)).date)}</h2>
           </div>
         </>
       )}
