@@ -11,7 +11,7 @@ function App() {
 
   const fetchWeatherData = async () => {
     try {
-      const response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.weatherapi.com/v1/forecast.json?key=a723218da53a464d8cf182437232609&q=${userLocation}&days=4`);
+      const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=a723218da53a464d8cf182437232609&q=${userLocation}&days=4`);
       const data = await response.json();
 
       if (data.error) {
