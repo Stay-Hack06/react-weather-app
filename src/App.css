@@ -12,7 +12,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   transition: background-image 0.5s ease-in-out;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* Container for the entire app */
@@ -26,6 +26,8 @@ body {
     "hottest hottest";
   height: 100vh;
   width: 100vw;
+  overflow: scroll;
+
 }
 
 /* Common flex styles for centering content */
@@ -123,7 +125,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 100%;
+  width: 340px;
 
 }
 
@@ -155,4 +157,14 @@ body {
 
 img {
   opacity: 0.6;
+}
+
+@media (min-width: 1500px) {
+  .App {
+    grid-template-columns: 1fr 750px 750px 1fr;
+    grid-template-areas:
+      "header header header header"
+      ". today forecast ."
+      "hottest hottest hottest hottest";
+  }
 }

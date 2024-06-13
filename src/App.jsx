@@ -28,9 +28,13 @@ function App() {
   };
 
   const getDayOfWeek = (dateString) => {
+    console.log("string before Date object ", dateString);
     const date = new Date(`${dateString}T00:00:00Z`);
-    const options = { weekday: 'long' };
-    return new Intl.DateTimeFormat('en-US', options).format(date);
+    const utcOffsetMinutes = date.getTimezoneOffset();
+    const localTime = new Date(date.getTime() + utcOffsetMinutes * 60000);
+    console.log("Date object ", localTime);
+    const options = { weekday: "long" };
+    return new Intl.DateTimeFormat("en-US", options).format(localTime);
   };
 
   useEffect(() => {
@@ -76,11 +80,10 @@ function App() {
           <div className="forecast-header-container flex-center">
             <h2>Three Day Forecast</h2>
             <div className="three-day-weather-info">
-              {weatherData.forecast.forecastday.slice(1, 4).map((forecast, index) => (
+              {weatherData.forecast.forecastday.slice(0, 3).map((forecast, index) => (
                 <div key={index} className="forecast-box">
                   <h3>{getDayOfWeek(forecast.date)}</h3>
-                  <h1>{Math.round(forecast.day.avgtemp_f)}°F</h1>
-                  <p>High Temp: {Math.round(forecast.day.maxtemp_f)}°F</p>
+                  <h1>{Math.round(forecast.day.maxtemp_f)}°F</h1>
                   <p>Low Temp: {Math.round(forecast.day.mintemp_f)}°F</p>
                   <p>Chance of Rain: {forecast.day.daily_chance_of_rain}%</p>
                 </div>
